@@ -4,17 +4,23 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTableModule} from '@angular/material/table';
 import localeFr from '@angular/common/locales/fr';
 import {BrowserModule} from '@angular/platform-browser';
+import {NgxEchartsModule} from 'ngx-echarts';
 import {registerLocaleData} from '@angular/common';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatTabsModule} from '@angular/material/tabs';
+import {TransactionsTableComponent} from './transactions-table/transactions-table.component';
+import { SoldeChartComponent } from './solde-chart/solde-chart.component';
 
 registerLocaleData(localeFr);
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TransactionsTableComponent,
+    SoldeChartComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +28,11 @@ registerLocaleData(localeFr);
     BrowserAnimationsModule,
     MatToolbarModule,
     MatTableModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatTabsModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts'),
+    })
   ],
   providers: [
     {provide: DEFAULT_CURRENCY_CODE, useValue: 'EUR'},

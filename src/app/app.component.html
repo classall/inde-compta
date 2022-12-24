@@ -11,35 +11,14 @@
   <p>TVA : {{TVA | currency}}</p>
   <p>Bénéfices : {{benef | currency}}</p>
 
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-    <!-- Date Column -->
-    <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef>Date</th>
-      <td mat-cell *matCellDef="let element">{{element.date}} </td>
-    </ng-container>
-
-    <!-- Label Column -->
-    <ng-container matColumnDef="label">
-      <th mat-header-cell *matHeaderCellDef>Label</th>
-      <td mat-cell *matCellDef="let element">{{element.label}} </td>
-    </ng-container>
-
-    <!-- Amount Column -->
-    <ng-container matColumnDef="amount">
-      <th mat-header-cell *matHeaderCellDef>Amount</th>
-      <td mat-cell *matCellDef="let element">{{element.amount | currency}} </td>
-    </ng-container>
-
-    <!-- TVA Column -->
-    <ng-container matColumnDef="TVA">
-      <th mat-header-cell *matHeaderCellDef>TVA</th>
-      <td mat-cell *matCellDef="let element">{{element.TVA | currency}} </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+  <mat-tab-group>
+    <mat-tab label="Transactions">
+      <app-transactions-table [transactions]="transactions"></app-transactions-table>
+    </mat-tab>
+    <mat-tab label="Solde">
+      <app-solde-chart [soldes]="soldes"></app-solde-chart>
+    </mat-tab>
+  </mat-tab-group>
 
 </div>
 
