@@ -13,6 +13,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatTabsModule} from '@angular/material/tabs';
 import {TransactionsTableComponent} from './transactions-table/transactions-table.component';
 import { SoldeChartComponent } from './solde-chart/solde-chart.component';
+import { DropFileDirective } from './directives/drop-file.directive';
 
 registerLocaleData(localeFr);
 
@@ -20,7 +21,8 @@ registerLocaleData(localeFr);
   declarations: [
     AppComponent,
     TransactionsTableComponent,
-    SoldeChartComponent
+    SoldeChartComponent,
+    DropFileDirective
   ],
   imports: [
     BrowserModule,

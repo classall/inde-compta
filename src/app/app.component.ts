@@ -12,17 +12,32 @@ export class AppComponent {
 
   transactions: Transaction[] = [];
   soldes: SoldeChartData[] = [];
-  CA_HT = 0;
-  CA_TTC = 0;
-  TVA = 0;
-  benef = 0;
-  URSSAF = 0;
+  CA_HT: number;
+  TVA: number;
+  benef: number;
+  URSSAF: number;
 
-  onFileUpload(event: Event) {
+  constructor() {
+    this.CA_HT = 0;
+    this.TVA = 0;
+    this.benef = 0;
+    this.URSSAF = 0;
+  }
+
+  onFileUpload(target: EventTarget | null) {
+    if (target) {
+      const files = (target as HTMLInputElement).files as FileList;
+      this.readFile(files[0]);
+    }
+  }
+
+  onFileDropped($event: FileList) {
+    this.readFile($event[0]);
+  }
+
+  readFile(file: File): void {
     const reader = new FileReader();
-    const target = event.target as HTMLInputElement;
-    const files = target.files as FileList;
-    reader.readAsText(files[0]);
+    reader.readAsText(file);
     reader.onload = () => {
       const text = reader.result as string;
       this.csvToJSON(text);
@@ -30,6 +45,10 @@ export class AppComponent {
   }
 
   csvToJSON(csvText: string) {
+    this.CA_HT = 0;
+    this.TVA = 0;
+    this.benef = 0;
+    this.URSSAF = 0;
     const lines = csvText.replace(/\r/gm, '').split("\n");
     const result = [];
     const headers = lines[0].split(appSettings.csvSeparator);
@@ -56,8 +75,7 @@ export class AppComponent {
         tr.credit_ht = tr.credit - tr.TVA;
         this.CA_HT += tr.credit_ht;
       }
-      
-      this.CA_TTC += tr.credit;
+
       this.TVA += tr.TVA;
       this.benef += tr.amount;
       result.push(tr);

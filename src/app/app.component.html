@@ -2,10 +2,16 @@
   <span>Indé Compta</span>
 </mat-toolbar>
 
-<input type="file" accept="text/csv" (change)="onFileUpload($event)">
-
 
 <div class="content">
+
+  <div class="drop-zone" appDropFile (fileDropped)="onFileDropped($event)">
+    <input type="file" id="fileDrop" accept="text/csv" (change)="onFileUpload($event.target)">
+    <h3>Drag and drop file here</h3>
+    <h3>or</h3>
+    <label for="fileDrop">Browse for file</label>
+  </div>
+
   <p>CA HT : {{CA_HT | currency}}</p>
   <p>URSSAF : {{URSSAF | currency}}</p>
   <p>TVA : {{TVA | currency}}</p>
